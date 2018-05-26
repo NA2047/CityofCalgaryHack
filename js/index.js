@@ -158,7 +158,7 @@ function getCookie(cname) {
 }
 
 if (checkCookie()) {
-  document.getElementById('modalLRForm').modal('show');
+  $('#modalLRForm').modal('show');
 } else {
 
 }
