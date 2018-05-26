@@ -71,21 +71,30 @@ var map, infoWindow;
       }
   ]});
 
+  var walkerIcon = {
+    url: 'https://use.fontawesome.com/releases/v5.0.13/svgs/solid/walking.svg', // url
+    scaledSize: new google.maps.Size(50, 50) // scaled size
+  };
+
+var bicycleIcon = {
+  url: 'https://use.fontawesome.com/releases/v5.0.13/svgs/solid/bicycle.svg', // url
+  scaledSize: new google.maps.Size(50, 50) // scaled size
+};
+
+var walkers1 = new google.maps.Marker({
+  position: {lat: 51.053132, lng: -114.075835},
+  map: map,
+  title: "Cool Walkers",
+  icon: walkerIcon,
+});
+
   var cyclers1 = new google.maps.Marker({
-    position: {lat: 51.054008, lng: -114.071459},
+    position: {lat: 51.053840, lng: -114.074253},
     map: map,
     title: "Awesome Cyclers",
-    icon: 'https://www.shareicon.net/data/128x128/2016/01/07/699407_sports_512x512.png',
-    scale: 0.5
+    icon: bicycleIcon,
   });
 
-  var walkers1 = new google.maps.Marker({
-    position: {lat: 51.053132, lng: -114.075835},
-    map: map,
-    title: "Cool Walkers",
-    icon: 'http://freeflaticons.com/wp-content/uploads/2014/09/silhouette-copy-14117977314g8kn.png',
-    scale: 0.5
-  })
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -149,8 +158,7 @@ function getCookie(cname) {
 }
 
 if (checkCookie()) {
-  console.log("IF TAKEN");
-  $('#modalLRForm').modal('show');
+  document.getElementById('modalLRForm').modal('show');
 } else {
-  console.log("IF NOT TAKEN");
+
 }
