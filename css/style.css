@@ -11,3 +11,8 @@
    z-index: 1;
    width: 100%;
  }
+
+.btn-rounded {
+  background: rgba(167, 61, 61, 0.877);
+  color:white;
+}
