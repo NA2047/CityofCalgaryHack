@@ -1,7 +1,46 @@
 var print = console.log.bind(console)
 
-function initMap() {
-  var uluru = {lat: -25.344, lng: 131.036};
-  var map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: uluru});
-  var marker = new google.maps.Marker({position: uluru, map: map});
+var map, infoWindow;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {center: {lat: -34.397, lng: 150.644},zoom: 6});
+    infoWindow = new google.maps.InfoWindow;
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent('Here you are!');
+      infoWindow.open(map);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+body = document.getElementsByTagName("html");
+
+window.onload = function() {
+  document.getElementById('map').style.height = body[0].clientHeight + "px";
+  document.getElementById('map').style.width = body[0].clientWidth + "px";
+}
+
+window.addEventListener("resize",resizeFunction);
+function resizeFunction() {
+  document.getElementById('map').style.height = body[0].clientHeight + "px";
+  document.getElementById('map').style.width = body[0].clientWidth + "px";
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
 }
