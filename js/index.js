@@ -8,7 +8,7 @@ var map, infoWindow;
 var directionsService;
 var directionsDisplay;
   function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {center: {lat: 51.044352, lng: -114.061312},zoom: 15, styles:
+    map = new google.maps.Map(document.getElementById('map'), {center: {lat: 51.044352, lng: -114.061312},zoom: 16, styles:
     [
       {
           "featureType": "poi.park",
@@ -38,17 +38,24 @@ var directionsDisplay;
         ]
       },
       {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            visibility: "off" }
+        ]
+      },
+      {
           "featureType": "road",
           "elementType": "geometry",
           "stylers": [
               {
-                  "hue": "#FFFFFF"
+                  "hue": "#AAAAAA"
               },
               {
-                  "saturation": -100
+                  "saturation": 15
               },
               {
-                  "lightness": 100
+                  "lightness": 15
               },
               {
                   "visibility": "simplified"
@@ -85,10 +92,6 @@ var directionsDisplay;
     scaledSize: new google.maps.Size(50, 50) // scaled size
   };
 
-  directionsService = new google.maps.DirectionsService();
-  directionsDisplay = new google.maps.DirectionsRenderer({map:map});
-  displayRoute();
-
   var walkers1 = new google.maps.Marker({
     position: {lat: 51.053132, lng: -114.075835},
     map: map,
@@ -96,21 +99,25 @@ var directionsDisplay;
     icon: walkerIcon,
   });
 
-  var walkInfoWindow = new google.maps.InfoWindow({content:"Walking Group"});
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer({map:map, preserveViewport: true});
+  var walkInfoWindow = new google.maps.InfoWindow({content:'<h6>Group: </h6><p>Mid-day Strollers</p><h6>Meeting Time: </h6><p>3PM</p><h6>Intensity: </h6><p>Low</p><h6>Group Size: </h6><p>17 Members</p><div class="join-container"><p class="join-button">Join Group</p></div>'});
   walkers1.addListener('click', function() {
     walkInfoWindow.open(map, walkers1);
+    displayRoute("WALKING",{lat: 51.053132, lng: -114.075835},{lat: 51.045854, lng: -114.058559});
   });
 
   var cyclers1 = new google.maps.Marker({
-    position: {lat: 51.053840, lng: -114.074253},
+    position: {lat: 51.0426471, lng: -114.151061},
     map: map,
     title: "Awesome Cyclers",
     icon: bicycleIcon,
   });
 
-  var bikeInfoWindow = new google.maps.InfoWindow({content:"Biking Group"});
+  var bikeInfoWindow = new google.maps.InfoWindow({content:'<h6>Group: </h6><p>Morning Rollers</p><h6>Meeting Time: </h6><p>7AM</p><h6>Intensity: </h6><p>High</p><h6>Group Size: </h6><p>10 Members</p><div class="join-container"><p class="join-button">Join Group</p></div>'});
   cyclers1.addListener('click', function() {
     bikeInfoWindow.open(map, cyclers1);
+    displayRoute("BICYCLING",{lat: 51.0426471, lng: -114.151061},{lat: 51.045854, lng: -114.058559});
   });
 
   var markerZoomLevel = "close";
@@ -119,8 +126,8 @@ var directionsDisplay;
 
     if (currentZoom > 15 && markerZoomLevel === "close") {
       markerZoomLevel = "far";
-      walkers1.setIcon(bicycleIcon = {
-        url: cyclerIconURL,
+      walkers1.setIcon(walkerIcon = {
+        url: walkerIconURL,
         scaledSize: new google.maps.Size(50, 50),
       });
       cyclers1.setIcon(bicycleIcon = {
@@ -129,7 +136,7 @@ var directionsDisplay;
       });
     } else if (currentZoom <= 15 && markerZoomLevel === "far") {
       markerZoomLevel = "close";
-      walkers1.setIcon(bicycleIcon = {
+      walkers1.setIcon(walkerIcon = {
         url: walkerIconURL,
         scaledSize: new google.maps.Size(25, 25)
       });
@@ -226,11 +233,16 @@ function pushDown(ele) {
   }
 }
 
-function displayRoute() {
+function displayRoute(method, start, finish) {
+  if (directionsDisplay != null) {
+    directionsDisplay.setMap(null);
+    directionsDisplay = null;
+  }
+ directionsDisplay = new google.maps.DirectionsRenderer({map:map, preserveViewport: true, suppressMarkers: true});
   var request = {
-    origin:{lat: 51.053132, lng: -114.075835},
-    destination: {lat: 51.053840, lng: -114.074253},
-    travelMode: 'WALKING'
+    origin:start,
+    destination: finish,
+    travelMode: method
   };
   directionsService.route(request, function(result, status) {
     if (status == 'OK') {

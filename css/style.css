@@ -16,3 +16,17 @@
   background: rgba(167, 61, 61, 0.877);
   color:white;
 }
+
+.join-button {
+  text-align: center;
+  padding: 10px 10px;
+  background-color: #f3ca32;
+}
+
+.join-button:hover {
+  cursor: pointer;
+}
+
+.join-container {
+  text-align: center;
+}
