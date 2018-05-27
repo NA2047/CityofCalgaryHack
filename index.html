@@ -9,9 +9,9 @@
   <div>
     <!--Modal: Login / Register Form-->
     <div class="modal fade" id="modalLRForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog cascading-modal" role="document">
+      <div class="modal-dialog cascading-modal modal-lg" data-size="modal-lg" role="document">
         <!--Content-->
-        <div class="modal-content">
+        <div class="modal-content modal-lg" id="modalLRContent" data-size="modal-lg">
 
           <!--Modal cascading tabs-->
           <div class="modal-c-tabs">
@@ -36,13 +36,13 @@
                   <div class="md-form form-sm mb-5">
                     <i class="fa fa-envelope prefix"></i>
                     <input type="email" id="modalLRInput10" class="form-control form-control-sm validate" placeholder="Email">
-                    <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label>
+                    <!-- <label data-error="wrong" data-success="right" for="modalLRInput10">Email</label> -->
                   </div>
 
                   <div class="md-form form-sm mb-4">
                     <i class="fa fa-lock prefix"></i>
                     <input type="password" id="modalLRInput11" class="form-control form-control-sm validate" placeholder="Password">
-                    <label data-error="wrong" data-success="right" for="modalLRInput11">Password</label>
+                    <!-- <label data-error="wrong" data-success="right" for="modalLRInput11">Password</label> -->
                   </div>
                   <div class="text-center mt-2">
                     <button class="btn btn-info">Log in <i class="fa fa-sign-in ml-1"></i></button>
@@ -68,19 +68,36 @@
                   <div class="md-form form-sm mb-5">
                     <i class="fa fa-envelope prefix"></i>
                     <input type="email" id="modalLRInput12" class="form-control form-control-sm validate" placeholder="Email">
-                    <label data-error="wrong" data-success="right" for="modalLRInput12">Email</label>
+                    <!-- <label data-error="wrong" data-success="right" for="modalLRInput12">Email</label> -->
                   </div>
 
                   <div class="md-form form-sm mb-5">
                     <i class="fa fa-lock prefix"></i>
                     <input type="password" id="modalLRInput13" class="form-control form-control-sm validate" placeholder="Password">
-                    <label data-error="wrong" data-success="right" for="modalLRInput13">Password</label>
+                    <!-- <label data-error="wrong" data-success="right" for="modalLRInput13">Password</label> -->
                   </div>
 
                   <div class="md-form form-sm mb-4">
                     <i class="fa fa-lock prefix"></i>
                     <input type="password" id="modalLRInput14" class="form-control form-control-sm validate" placeholder="Confirm Password">
-                    <label data-error="wrong" data-success="right" for="modalLRInput14">Confirm Password</label>
+                    <!-- <label data-error="wrong" data-success="right" for="modalLRInput14">Confirm Password</label> -->
+                  </div>
+
+                  <label for="loc">What are your preferences?</label>
+
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="biking-checkbox">
+                    <label class="form-check-label" for="exampleCheck1">Biking</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="walking-checkbox">
+                    <label class="form-check-label" for="exampleCheck1">Walking</label>
+                  </div>
+
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="running-checkbox">
+                    <label class="form-check-label" for="exampleCheck1">Running</label>
                   </div>
 
                   <div class="text-center form-sm mt-2">
