@@ -1,6 +1,7 @@
-var print = console.log.bind(console)
-var cyclerIconURL = 'https://use.fontawesome.com/releases/v5.0.13/svgs/solid/bicycle.svg'
-var walkerIconURL = 'https://use.fontawesome.com/releases/v5.0.13/svgs/solid/walking.svg'
+var print = console.log.bind(console);
+var cyclerIconURL = 'https://use.fontawesome.com/releases/v5.0.13/svgs/solid/bicycle.svg';
+var walkerIconURL = 'https://use.fontawesome.com/releases/v5.0.13/svgs/solid/walking.svg';
+var busIconURL ='https://use.fontawesome.com/releases/v5.0.13/svgs/solid/bus.svg';
 
 document.cookie = "KineticYYC=abymoen; expires=Thu, 18 Dec 2029 12:00:00 UTC";
 
@@ -82,6 +83,9 @@ var directionsDisplay;
       }
   ]});
 
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer({map:map, preserveViewport: true});
+
   var walkerIcon = {
     url: walkerIconURL, // url
     scaledSize: new google.maps.Size(50, 50) // scaled size
@@ -92,6 +96,11 @@ var directionsDisplay;
     scaledSize: new google.maps.Size(50, 50) // scaled size
   };
 
+  var busIcon = {
+    url: busIconURL,
+    scaledSize: new google.maps.Size(50, 50)
+  }
+
   var walkers1 = new google.maps.Marker({
     position: {lat: 51.053132, lng: -114.075835},
     map: map,
@@ -99,8 +108,6 @@ var directionsDisplay;
     icon: walkerIcon,
   });
 
-  directionsService = new google.maps.DirectionsService();
-  directionsDisplay = new google.maps.DirectionsRenderer({map:map, preserveViewport: true});
   var walkInfoWindow = new google.maps.InfoWindow({content:'<h6>Group: </h6><p>Mid-day Strollers</p><h6>Meeting Time: </h6><p>3PM</p><h6>Intensity: </h6><p>Low</p><h6>Group Size: </h6><p>17 Members</p><div class="join-container"><p class="join-button">Join Group</p></div>'});
   walkers1.addListener('click', function() {
     walkInfoWindow.open(map, walkers1);
@@ -118,6 +125,20 @@ var directionsDisplay;
   cyclers1.addListener('click', function() {
     bikeInfoWindow.open(map, cyclers1);
     displayRoute("BICYCLING",{lat: 51.0426471, lng: -114.151061},{lat: 51.045854, lng: -114.058559});
+  });
+
+  var bus1 = new google.maps.Marker({
+    position: {lat: 51.0340405, lng: -114.0809093},
+    map: map,
+    title: "Cool Walkers",
+    icon: busIcon,
+  });
+
+  var busInfoWindow = new google.maps.InfoWindow({content:'<h6>Group: </h6><p>Connaught School Walking Bus</p><h6>Meeting Time: </h6><p>8AM</p><h6>Intensity: </h6><p>Low</p><h6>Group Size: </h6><p>35 Members</p><div class="join-container"><p class="join-button">Join Group</p></div>'});
+  bus1.addListener('click', function() {
+    busInfoWindow.open(map, bus1);
+    displayRoute("WALKING",{lat: 51.0340405, lng: -114.0809093},{lat: 51.0418444, lng: -114.0880601});
+    createBusStops();
   });
 
   var markerZoomLevel = "close";
@@ -210,11 +231,11 @@ function getCookie(cname) {
 
 var timeout;
 if (checkCookie()) {
-
-} else {
   timeout = setTimeout(pushDown, 500);
   document.getElementById("modalLRContent").style.visibility = "hidden";
   $('#modalLRForm').modal('show');
+} else {
+
 }
 
 function pushDown(ele) {
@@ -248,5 +269,43 @@ function displayRoute(method, start, finish) {
     if (status == 'OK') {
       directionsDisplay.setDirections(result);
     }
+  });
+}
+
+function createBusStops() {
+  busStop1 = new google.maps.Marker({
+    position: {lat: 51.034503, lng: -114.084380},
+    map: map,
+  });
+  busStopInfoWindowOne = new google.maps.InfoWindow({content:'<h6>Stop Number:</h6><p>One</p>'});
+  busStop1.addListener('click', function() {
+    busStopInfoWindowOne.open(map, busStop1);
+  });
+
+  busStop2 = new google.maps.Marker({
+    position: {lat: 51.036129, lng: -114.084380},
+    map: map,
+  });
+  busStopInfoWindowTwo = new google.maps.InfoWindow({content:'<h6>Stop Number:</h6><p>Two</p>'});
+  busStop2.addListener('click', function() {
+    busStopInfoWindowTwo.open(map, busStop2);
+  });
+
+  busStop3 = new google.maps.Marker({
+    position: {lat: 51.039221, lng: -114.084090},
+    map: map,
+  });
+  busStopInfoWindowThree = new google.maps.InfoWindow({content:'<h6>Stop Number:</h6><p>Three</p>'});
+  busStop3.addListener('click', function() {
+    busStopInfoWindowThree.open(map, busStop3);
+  });
+
+  busStop4 = new google.maps.Marker({
+    position: {lat: 51.041995, lng: -114.083972},
+    map: map,
+  });
+  busStopInfoWindowFour = new google.maps.InfoWindow({content:'<h6>Stop Number:</h6><p>Four</p>'});
+  busStop4.addListener('click', function() {
+    busStopInfoWindowFour.open(map, busStop4);
   });
 }
